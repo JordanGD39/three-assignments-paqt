@@ -8,6 +8,7 @@ export default function FizzBuzz() {
     const [sequence, setSequence] = useState<string | number[]>([]);
     const [indexCounter, setIndexCounter] = useState(0);
     const [started, setStarted] = useState(false);
+    const [color, setColor] = useState<string>('transparent');
     let counter: any;
 
     const numberBeat = new Audio(numberBeatPath);
@@ -20,8 +21,8 @@ export default function FizzBuzz() {
 
     useEffect(() => {
         if (started) {
-        playSound(0);
-          counter = setInterval(() => setIndexCounter(indexCounter => indexCounter + 1), 600);
+        showEffect(0);
+          counter = setInterval(() => setIndexCounter(indexCounter => indexCounter + 1), 400);
         }
         return () => {
           clearInterval(counter);
@@ -35,20 +36,34 @@ export default function FizzBuzz() {
         }
 
         if (indexCounter >= sequence.length) {
+            showEffect(0);
             clearInterval(counter);
             return;
         }
 
-        playSound(indexCounter);
+        showEffect(indexCounter);
     }, [indexCounter])
 
-    function playSound(index: number) {
+    function showEffect(index: number) {
         if (parseInt(sequence[index].toString())) {
             numberBeat.play();
+            setColor('transparent');
             return;
         }
 
         fizzBuzzBeat.play();
+
+        switch (sequence[index]) {
+            case 'Fizz':
+                setColor('blue');
+                break;
+            case 'Buzz':
+                setColor('red');
+                break;
+            default:
+                setColor('magenta');
+                break;
+        }
     }
 
     function getText() {
@@ -60,7 +75,7 @@ export default function FizzBuzz() {
 
   return (
     <PageLayout>
-        <div onClick={() => setStarted(true)} style={{pointerEvents: started ? "none": 'auto'}} className='flex-1 flex items-center justify-center cursor-pointer'>
+        <div onClick={() => setStarted(true)} style={{pointerEvents: started ? "none": 'auto', backgroundColor: color}} className='flex-1 flex items-center justify-center cursor-pointer transition-colors duration-300'>
             <h1 className='font-bold text-4xl pointer-events-none'>
                 {getText()}
             </h1>
