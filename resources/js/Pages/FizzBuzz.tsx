@@ -4,12 +4,13 @@ import { ApiUtils } from '../Utils/ApiUtils'
 import numberBeatPath from '../../sounds/Beat.mp3'
 import fizzBuzzBeatPath from '../../sounds/OtherBeat.mp3'
 
+let counter: any;
+
 export default function FizzBuzz() {
     const [sequence, setSequence] = useState<string | number[]>([]);
     const [indexCounter, setIndexCounter] = useState(0);
     const [started, setStarted] = useState(false);
     const [color, setColor] = useState<string>('transparent');
-    let counter: any;
 
     const numberBeat = new Audio(numberBeatPath);
     const fizzBuzzBeat = new Audio(fizzBuzzBeatPath);
