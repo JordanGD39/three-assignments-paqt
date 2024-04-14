@@ -51,7 +51,9 @@ export default function DivideCollect() {
             <label>
                 List:
                 {" [ "}
-                {numberList.length > 0 && numberList.map((val, index) => formatNumber(val, index, numberList.length))}
+                <div className='overflow-hidden inline-block max-w-[390px] text-ellipsis translate-y-1/4'>
+                    {numberList.length > 0 && numberList.map((val, index) => formatNumber(val, index, numberList.length))}
+                </div>
                 {" ]"}
             </label>
             <label>
